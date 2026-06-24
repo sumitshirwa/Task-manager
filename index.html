@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Task Management App | Simple & Efficient To-Do List</title>
+
+    <meta name="description" content="An efficient, simple, and modern Task Management web application built with vanilla JavaScript. Organize your daily tasks, set priorities, and track progress effortlessly." />
+    <meta name="keywords" content="task manager, to-do list, productivity app, vanilla js, task management" />
+    <meta name="author" content="Angkon-Kar" />
+    
+    <meta name="theme-color" content="#1976d2" />
+
+    <meta property="og:title" content="Task Management App | Simple & Efficient To-Do List" />
+    <meta property="og:description" content="An efficient, simple, and modern Task Management web application built with vanilla JavaScript." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="[Replace with your actual live URL]" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Task Management App | Simple & Efficient To-Do List" />
+    <meta name="twitter:description" content="Organize tasks effortlessly with this modern vanilla JS Task Manager." />
+
+    <link rel="icon" type="image/x-icon" href="planning.png">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Task Management</h1>
+            <div class="progress-wrapper">
+                <div class="progress-text">Progress: <span id="progressPercent">0%</span></div>
+                <div class="progress-bar" aria-hidden="true">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+            </div>
+        </header>
+
+        <form id="taskForm" class="task-form">
+            <div class="form-row">
+                <input type="text" id="taskTitle" placeholder="Task Title" required />
+                <select id="taskCategory" title="Category">
+                    <option value="">General</option>
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Study">Study</option>
+                </select>
+                <button type="button" id="manageCategoryBtn" class="secondary" title="Manage Categories">⚙️</button> 
+            </div>
+
+            <textarea id="taskDescription" placeholder="Task Description"></textarea>
+
+            <div class="form-row">
+                <select id="taskPriority" aria-label="Priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+
+                <input type="date" id="taskDueDate" title="Due Date" />
+
+                <select id="taskRecurrence" aria-label="Recurrence">
+                    <option value="none">Does not repeat</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+
+                <button type="submit" id="submitBtn">Add Task</button>
+                <button type="button" id="cancelEditBtn" class="secondary hidden">Cancel Edit</button>
+            </div>
+        </form>
+
+        <div class="task-controls">
+            <div class="control-row">
+                <label>Filter:</label>
+                <select id="filterTasks">
+                    <option value="all">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="incomplete">Incomplete</option>
+                </select>
+                <span id="allCount" class="count-badge"></span>
+                <span id="completedCount" class="count-badge"></span>
+                <span id="overdueCount" class="count-badge"></span>
+
+                <label>Category:</label>
+                <select id="filterCategory">
+                    <option value="all">All</option>
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Study">Study</option>
+                </select>
+
+                <label>Sort:</label>
+                <select id="sortTasks">
+                    <option value="custom">Custom Order</option> 
+                    <option value="date">By Due Date</option>
+                    <option value="priority">By Priority</option>
+                    <option value="created">By Created</option>
+                </select>
+            </div>
+
+            <div class="control-row control-row-2">
+                <input type="text" id="searchTasks" placeholder="Search tasks..." />
+                <div class="bulk-actions">
+                    <button id="selectAllBtn" class="secondary">Select All</button>
+                    <button id="clearSelectionBtn" class="secondary">Clear</button>
+                    <button id="bulkCompleteBtn" class="secondary">Complete Selected</button>
+                    <button id="bulkDeleteBtn" class="danger">Delete Selected</button>
+                </div>
+            </div>
+            
+            <div class="control-row">
+                <button id="exportBtn" class="secondary">Export JSON</button>
+                <button id="importBtn" class="secondary">Import JSON</button>
+                <input type="file" id="importFile" accept="application/json" class="hidden" />
+            </div>
+        </div>
+
+        <div id="taskList" class="task-list" aria-live="polite"></div>
+
+        <footer class="footer"> 
+        <p>&copy; 2024 Task Management App</p>
+        <p class="text-gray-400 text-sm">
+            Made with <span class="text-red-500">&hearts;</span> by 
+            <a href="https://github.com/Angkon-Kar" target="_blank">Angkon-Kar</a>
+        </p>
+        </footer>
+
+    </div>
+
+    <div id="categoryModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Manage Categories</h3>
+            <input type="text" id="newCategoryInput" placeholder="New Category Name" />
+            <button id="addCategoryBtn">Add Category</button>
+            <div id="dynamicCategoryList" class="category-list">
+                </div>
+            <button id="closeModalBtn" class="secondary">Close</button>
+        </div>
+    </div>
+
+    <script src="taskManager.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

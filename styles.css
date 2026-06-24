@@ -1,0 +1,183 @@
+/* Reset-ish */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f3f6f8; color:#111; }
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 18px auto;
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(12,20,30,0.07);
+}
+
+/* Header & Progress */
+.header { display:flex; align-items:center; justify-content:space-between; gap: 12px; margin-bottom:12px; }
+.header h1 { margin:0; font-size:1.4rem; }
+.progress-wrapper { width: 50%; min-width:220px; }
+.progress-text { font-size: 0.9rem; color:#444; margin-bottom:6px; }
+.progress-bar { background:#e9eef3; height:10px; border-radius:10px; overflow:hidden; }
+.progress-fill { height:100%; width:0%; background: linear-gradient(90deg,#4caf50,#8bc34a); transition: width 400ms ease; }
+
+/* Form */
+.task-form { margin-bottom:16px; }
+.form-row { display:flex; gap:10px; margin-bottom:10px; }
+.form-row input, .form-row select, .task-form textarea { padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:16px; }
+.task-form input[type="text"], .task-form textarea { flex-grow:1; }
+.task-form textarea { min-height:60px; resize:vertical; }
+.task-form button { padding:10px 15px; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
+#submitBtn { background:#1976d2; color:#fff; }
+#cancelEditBtn { background:#ccc; color:#333; }
+.hidden { display:none !important; }
+
+/* Controls */
+.task-controls { margin-bottom:16px; padding:10px; border:1px solid #eee; border-radius:8px; }
+.task-controls .control-row { display:flex; gap:10px; align-items:center; margin-bottom:8px; flex-wrap:wrap; }
+.task-controls .control-row-2 { margin-top:10px; }
+.task-controls label { font-weight:600; font-size:14px; color:#444; }
+.task-controls select { padding:8px 10px; border:1px solid #ccc; border-radius:6px; font-size:14px; }
+.task-controls input[type="text"] { flex-grow:1; }
+.bulk-actions { display:flex; gap:8px; }
+.bulk-actions button { padding:8px 10px; font-size:14px; }
+.secondary { background:#e9eef3; color:#444; }
+.danger { background:#f44336; color:#fff; }
+
+/* Task List */
+.task-list { display:flex; flex-direction:column; gap:8px; }
+.task-item { display:flex; justify-content:space-between; align-items:flex-start; padding:12px; border:1px solid #ddd; border-left:6px solid #1976d2; border-radius:8px; background:#fff; transition:all 300ms ease; }
+.task-item.enter { animation: fadeIn 300ms; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+
+/* Task Content */
+.task-left { display:flex; gap:12px; align-items:flex-start; flex-grow:1; padding-right:15px; }
+.task-left input[type="checkbox"] { width:20px; height:20px; margin-top:2px; }
+.task-info { flex-grow:1; min-width:0; }
+.task-title { display:flex; align-items:center; gap:8px; font-weight:700; font-size:1rem; margin-bottom:4px; flex-wrap:wrap; }
+.task-desc { 
+    color:#475569; 
+    font-size:13px; 
+    overflow: hidden; 
+    white-space: normal; /* No longer force single line */
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    line-clamp: 2; /* Standard property for compatibility */
+    -webkit-line-clamp: 2; /* Maximum 2 lines before ellipsis */
+    -webkit-box-orient: vertical;
+}
+.task-meta { font-size:12px; color:#667085; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+/* Badges */
+.badge { padding:3px 8px; border-radius:999px; color:#fff; font-size:12px; font-weight:700; }
+.priority-high { background:#e53935; }
+.priority-medium { background:#fb8c00; }
+.priority-low { background:#43a047; }
+.category-badge { background:#000000; color:#ffffff; padding:3px 8px; border-radius:999px; font-weight:600; }
+.badge-due { background:#6a1b9a; }
+.badge-today { background:#fdd835; color:#111; }
+
+/* Overdue */
+.task-overdue { border-left:6px solid rgba(244,67,54,0.12); background: linear-gradient(180deg,#fff7f7,#fffbfb); }
+.task-completed .task-title, .task-completed .task-desc { text-decoration: line-through; color:#97a0ad; opacity:0.8; }
+
+/* Actions right */
+.task-actions { display:flex; gap:8px; align-items:center; }
+.task-actions button { padding:6px 10px; font-size:14px; }
+
+/* Footer */
+.footer { text-align:center; padding:10px 0 0; margin-top:10px; border-top:1px solid #eee; font-size:0.8rem; color:#667085; }
+.footer a { color:#1976d2; text-decoration:none; }
+
+/* ⭐ Dynamic Category Modal Styles */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 400px;
+}
+#newCategoryInput { 
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+#addCategoryBtn {
+    background: #4caf50;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.category-list {
+    margin-top: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    padding: 8px;
+    border-radius: 6px;
+}
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px dotted #eee;
+}
+.category-item:last-child { border-bottom: none; }
+.category-item button { 
+    padding: 3px 8px; 
+    font-size: 12px;
+}
+.modal-content h3 { margin-top: 0; }
+
+/* ⭐ Count Badges */
+.count-badge {
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 4px;
+    background: #e9eef3;
+    color: #475569;
+}
+#overdueCount { 
+    background: #e53935;
+    color: #fff; 
+}
+.count-badge:empty { display: none; }
+
+
+/* ⭐ Drag and Drop Styles */
+.task-item[draggable="true"] {
+    cursor: grab;
+}
+.task-item.dragging {
+    opacity: 0.5;
+    transform: scale(1.02);
+}
+.task-item.drag-over-top {
+    border-top: 2px solid #1976d2;
+}
+.task-item.drag-over-bottom {
+    border-bottom: 2px solid #1976d2;
+}
+.task-list:not(.draggable) .task-item[draggable="true"] {
+    cursor: default; /* Drag cursor remove when not in custom sort mode */
+}
