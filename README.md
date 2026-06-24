@@ -42,7 +42,7 @@ This project goes beyond a simple to-do list, providing categories, priorities, 
 
 ## 🚀 Demo
 
-## 👉 [Live Demo](https://taskmanager-ten-eosin.vercel.app/)
+## 👉 [Live Demo](https://taskmanager-liard-three.vercel.app/)
 
 ## 📂 Project Structure
 ```
